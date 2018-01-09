@@ -6,6 +6,7 @@ You need python 3.5+ to run this project
 ## How to install Install
 
 Install dependencies with:
+
 `pip install -r requirements.txt`
 
 ## Usage
