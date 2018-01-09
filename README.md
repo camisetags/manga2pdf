@@ -7,8 +7,12 @@ You need python 3.5+ to run this project
 
 Install dependencies with:
 
-`pip install -r requirements.txt`
+```
+    pip install -r requirements.txt
+```
 
 ## Usage
 
-`python converter.py [input directory with images] [pdf file name]`
+```
+    python converter.py [input directory with images] [pdf file name]
+```
