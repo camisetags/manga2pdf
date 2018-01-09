@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print('====Files found====') 
     print(image_list)
 
-    print('====Converting and croping images====')
+    print('====Converting and cropping images====')
     convert_images(image_list)
     converted_images = find_images_path(folder, '.jpg')
     print(converted_images)
