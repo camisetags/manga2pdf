@@ -85,5 +85,5 @@ if __name__ == '__main__':
     output_file = '{}/{}'.format(folder, output_name)
     convert_to_pdf(jpg_list, output_file, '.jpg')
 
-    print('====Removing jpg files====')
+    print('====Removing JPG files====')
     remove_jpg_images(folder, 'jpg')
