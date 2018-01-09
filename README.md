@@ -1,7 +1,8 @@
 # manga2pdf
 
-Convert manga images to a pdf file
-You need python 3.5+ to run this project
+Convert manga images to a pdf file.
+
+You need python 3.5+ to run this project.
 
 ## How to install Install
 
