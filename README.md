@@ -15,5 +15,5 @@ Install dependencies with:
 ## Usage
 
 ```
-    python converter.py [input directory with images] [pdf file name]
+    python manga2pdf.py [input directory with images] [pdf file name]
 ```
