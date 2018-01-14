@@ -73,7 +73,7 @@ async def convert_single_image(image):
 async def convert_image_list(image_list):
     for image in image_list:
         if 'webp' in image:
-            await asynctio.gather(
+            await asyncio.gather(
                 convert_single_image(image)
             )
 
