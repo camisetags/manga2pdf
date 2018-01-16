@@ -1,3 +1,4 @@
 {
-  "python.pythonPath": "~/.virtualenvs/manga-converter/bin/python"
+  "python.pythonPath": "~/virtualenvs/manga2pdf/bin/python",
+  "python.linting.pylintArgs": ["--disable=W0312,C0111"]
 }

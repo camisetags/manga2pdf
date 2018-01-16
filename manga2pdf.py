@@ -2,8 +2,8 @@ import sys
 from os import listdir, path, makedirs, remove
 from os.path import isfile, join
 from PIL import Image, ImageChops
-import glob
 import img2pdf
+
 
 def remove_jpg_images(target_dir, extension):
     filelist = [ f for f in listdir(target_dir) if f.endswith(".{}".format(extension)) ]
@@ -26,19 +26,19 @@ def find_images_path(target_dir, extension):
     return file_paths
 
 
-def trim(im):
-    bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
-    diff = ImageChops.difference(im, bg)
+def trim(pil_image):
+    bg = Image.new(pil_image.mode, pil_image.size, pil_image.getpixel((0,0)))
+    diff = ImageChops.difference(pil_image, bg)
     diff = ImageChops.add(diff, diff, 2.0, -100)
     bbox = diff.getbbox()
     if bbox:
-        return im.crop(bbox)
+        return pil_image.crop(bbox)
 
 
 def crop_images(image):
-    im = Image.open(image)
-    im = trim(im)
-    return im
+    pil_image = Image.open(image)
+    pil_image = trim(pil_image)
+    return pil_image
 
 
 def remove_bottom_border(pil_image):
@@ -50,11 +50,11 @@ def remove_bottom_border(pil_image):
 def convert_images(image_list):
     for image in image_list:
         if 'webp' in image:
-            im = Image.open(image).convert('RGB')
+            pil_image = Image.open(image).convert('RGB')
             if '_01_' not in image:
-                im = trim(remove_bottom_border(im))
+                pil_image = trim(remove_bottom_border(pil_image))
 
-            im.save(image.replace('webp', 'jpg'), 'jpeg')
+            pil_image.save(image.replace('webp', 'jpg'), 'jpeg')
 
 
 def convert_to_pdf(image_list, output_name, extension):
@@ -64,26 +64,26 @@ def convert_to_pdf(image_list, output_name, extension):
 
 
 if __name__ == '__main__':
-    folder = sys.argv[1]
-    output_name = sys.argv[2]
+    FOLDER = sys.argv[1]
+    OUTPUT_NAME = sys.argv[2]
 
-    print('Folder name {}'.format(folder))
-    
+    print('Folder name {}'.format(FOLDER))
+
     print('====Finding files on directory====')
-    image_list = find_images_path(folder, '.webp')
-    
-    print('====Files found====') 
-    print(image_list)
+    IMAGE_LIST = find_images_path(FOLDER, '.webp')
+
+    print('====Files found====')
+    print(IMAGE_LIST)
 
     print('====Converting and cropping images====')
-    convert_images(image_list)
-    converted_images = find_images_path(folder, '.jpg')
-    print(converted_images)
+    convert_images(IMAGE_LIST)
+    CONVERTED_IMAGES = find_images_path(FOLDER, '.jpg')
+    print(CONVERTED_IMAGES)
 
     print('====Converting to PDF====')
-    jpg_list = find_images_path(folder, '.jpg')
-    output_file = '{}/{}'.format(folder, output_name)
-    convert_to_pdf(jpg_list, output_file, '.jpg')
+    JPG_LIST = find_images_path(FOLDER, '.jpg')
+    OUTPUT_FILE = '{}/{}'.format(FOLDER, OUTPUT_NAME)
+    convert_to_pdf(JPG_LIST, OUTPUT_FILE, '.jpg')
 
     print('====Removing JPG files====')
-    remove_jpg_images(folder, 'jpg')
+    remove_jpg_images(FOLDER, 'jpg')
